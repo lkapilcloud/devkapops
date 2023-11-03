@@ -55,22 +55,32 @@ helm install \
   --version v1.13.2 \
   --set installCRDs=true
 
-## enable nginx-ingress within your cluster ##
+## Step 6: enable nginx-ingress within your cluster ##
 To enable the NGINX Ingress controller, run the following command:
 minikube addons enable ingress
 
 Verify that the NGINX Ingress controller is running:
 kubectl get pods -n ingress-nginx
 
-## now build, tag and push the docker image using Dockerfile ##
+## Step 7: build, tag and push the docker image using Dockerfile ##
 run following commands:
 docker build -t docker-user-name/myapp:latest .
 docker tag docker-user-name/myapp:latest
 docker push docker-user-name/myapp:latest
 
-## Now run deployment on kubernetes cluster ##
+## STep 8: Run deployment on kubernetes cluster ##
 run commands:
 kubectl apply -f deployment.yaml
+
+This deployment file succesfully deploy "hello world" application with SSL (self-signed) on the url: https:myapp.example.com/crate-demo
+
+## Step 9: test application is working properly or not with https ##
+run commands as follows:
+ 1. **we have to add minikube cluster ip in /etc/hosts file so that we can resolv the minikube cluster-ip locally**
+ 2. minikube  ip # this command will provide you minikube cluster ip 
+ 3. echo " minikube-ip   myapp.example.com    myapp" >> /etc/hosts"
+ 4. **next stap we have to curl our application** 
+ 5. curl -k https://myapp.example.com/crate-demo
 
 
 
