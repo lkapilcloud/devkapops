@@ -13,18 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+    - name: Build Docker image
+      run: docker build -t lkapilcloud/myapp:latest .
 
-    - name: Build and push Docker image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        docker build -t lkapilcloud/myapp --push .
-        docker tag lkapilcloud/myapp lkapilcloud/myapp       
-        docker push lkapilcloud/myappv2
+    - name: Provide tag to image
+      run: docker tag lkapilcloud/myapp:latest lkapilcloud/myapp:latest
+
+    - name: Login to Docker Hub
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+    - name: Push Docker image
+      run: docker push lkapilcloud/myapp:latest
 
     - name: Set up kubectl
       uses: steebchen/kubectl@v2.0.0
