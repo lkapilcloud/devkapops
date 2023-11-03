@@ -38,7 +38,7 @@ jobs:
 
     - name: Install Cert-Manager
       run: |
-        kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.2/cert-manager.yaml
+        kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
 
     - name: Install nginx-ingress
       run: |
