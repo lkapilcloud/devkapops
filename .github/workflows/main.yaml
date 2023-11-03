@@ -22,8 +22,8 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        docker build -t lkapilcloud/myapp:v2 --push .
-        docker tag lkapilcloud/myapp:v2 lkapilcloud/myapp:v2       
+        docker build -t lkapilcloud/myapp --push .
+        docker tag lkapilcloud/myapp lkapilcloud/myapp       
         docker push lkapilcloud/myappv2
 
     - name: Set up kubectl
