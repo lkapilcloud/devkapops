@@ -23,7 +23,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         docker buildx create --use
-        docker buildx build -t lkapilcloud/myapp:v2 .
+        docker buildx build -t lkapilcloud/myapp:v2 --push .
         docker tag lkapilcloud/myapp:v2 lkapilcloud/myapp:v2       
         docker push lkapilcloud/myappv2
 
